@@ -1,0 +1,13 @@
+Things to do to make Physio App
+
+Create Project 
+Create Class for Exercise
+	Name, Set, Rep, Hold, 
+
+List physio activity and state Sets reps and hold (If required)
+Add a checkbox to notify completion
+Add a new exercise
+Add a tick on calender,
+Add a streak
+Set a notification for when to do physio
+Save different types Workouts
