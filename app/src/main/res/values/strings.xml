@@ -1,3 +1,16 @@
 <resources>
     <string name="app_name">PhysioApp</string>
+    <string name="actual_app_name">Leon\'s Physio Plan</string>
+    <string name="exercise_msg">Sets: %d, Reps: %d, Hold: %d seconds</string>
+    <string name="complete_msg">%d</string>
+    <string name="exercise1">Ankle Pump in Supine</string>
+    <string name="exercise2">Static quadriceps</string>
+    <string name="exercise3">Active knee flexion in long sit</string>
+    <string name="exercise4">Active knee flexion in sitting</string>
+    <string name="exercise5">Stationary Stair Lunge</string>
+    <string name="exercise6">Perched Sit to Stand</string>
+    <string name="exercise7">Glute Bridge</string>
+    <string name="exercise8">PhysioApp</string>
+    <string name="exercise9">PhysioApp</string>
+    <string name="exercise10">PhysioApp</string>
 </resources>

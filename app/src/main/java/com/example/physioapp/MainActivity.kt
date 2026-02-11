@@ -6,6 +6,7 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -19,15 +20,22 @@ import androidx.compose.foundation.layout.safeDrawingPadding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.layout.wrapContentWidth
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.Card
+import androidx.compose.material3.CenterAlignedTopAppBar
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.material3.Icon
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.TextField
+import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
@@ -37,14 +45,19 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.example.physioapp.data.Exercise
+import com.example.physioapp.data.plan
 import com.example.physioapp.ui.theme.PhysioAppTheme
+
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -55,7 +68,7 @@ class MainActivity : ComponentActivity() {
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                 ) {
-                    PhysioAppLayout("Hello")
+                    PhysioApp()
                 }
 
             }
@@ -63,76 +76,96 @@ class MainActivity : ComponentActivity() {
     }
 }
 
-/* Design of the App Display */
+/* Composable to display the App and generate content */
 @Composable
-fun PhysioAppLayout(name: String, modifier: Modifier = Modifier) {
-    Column(
-        modifier = Modifier
-            .statusBarsPadding()
-            .padding(horizontal = 40.dp)
-            .verticalScroll(rememberScrollState())
-            .safeDrawingPadding(),
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center
-    ){
-        /* Header */
-        Text(
-            text = stringResource(R.string.app_name),
-            style = MaterialTheme.typography.headlineLarge,
-            color = Color.White,
-            modifier = Modifier
-                .background(Color.Red)
-                .fillMaxWidth(),
-            textAlign = TextAlign.Center
-
-        )
-        Text(
-            text = "Excerise 1",
-                modifier = Modifier
-                    .padding(bottom = 16.dp, top = 40.dp)
-                    .align(alignment = Alignment.Start)
-        )
-        /* Exercise 1 */
-
-        DrawExercise(
-            label = "Ankle Pumps in Supine",
-            modifier = Modifier
-                .padding(bottom = 16.dp, top = 40.dp)
-                .align(alignment = Alignment.Start)
-        )
-        Text(
-            text = "Excerise 2",
-            modifier = Modifier
-                .padding(bottom = 16.dp, top = 40.dp)
-                .align(alignment = Alignment.Start)
-        )
-        DrawExercise(
-        label = "Static quadriceps",
-        modifier = Modifier
-            .padding(bottom = 16.dp, top = 40.dp)
-            .align(alignment = Alignment.Start)
-    )
+fun PhysioApp() {
+    Scaffold (
+        topBar = {
+            PhysioTopAppBar()
+        }
+    ) { it->
+        LazyColumn(contentPadding = it){
+            items(plan) {
+                ExerciseItem(
+                    exercise = it,
+                    modifier = Modifier.padding(dimensionResource(R.dimen.padding_small))
+                )
+            }
+        }
     }
 }
 
-
+/* Display the top bar */
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun DrawExercise(
-    label: String,
-    modifier: Modifier
-){
-    Text(
-        text = label,
-        modifier = Modifier
+fun PhysioTopAppBar( modifier: Modifier = Modifier )
+{
+    CenterAlignedTopAppBar(
+        colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
+            containerColor = MaterialTheme.colorScheme.primary,
+            titleContentColor = MaterialTheme.colorScheme.onPrimary
+        ),
+        title = {
+            Row(
+                verticalAlignment = Alignment.CenterVertically
+            )
+            {
+                Text(
+                    text = stringResource(R.string.actual_app_name),
+                    style = MaterialTheme.typography.displayMedium
+                )
+            }
+        },
+        modifier = modifier
     )
-    Spacer(modifier = Modifier.height(100.dp))
+}
+/* Display a list item to display an exercise */
+@Composable
+fun ExerciseItem (
+    exercise: Exercise,
+    modifier: Modifier = Modifier
+)
+{
+    Card(modifier = modifier)
+    {
+        Row(
+            modifier = modifier
+                .fillMaxWidth()
+                .padding(dimensionResource(R.dimen.padding_small))
+        ) {
+            ExerciseInformation(exercise.name, exercise.hold, exercise.set, exercise.reps, exercise.state)
+        }
+    }
+}
 
+/* Fill out the list with exercise information */
+@Composable
+fun ExerciseInformation(
+    @StringRes eName: Int,
+    eHold: Int,
+    eSet: Int,
+    eReps: Int,
+    eState: Boolean,
+    modifier: Modifier = Modifier
+)
+{
+    Column(modifier = modifier) {
+        Text(
+            text = stringResource(eName),
+            fontWeight = FontWeight.Bold
+
+        )
+        Text(
+            text = stringResource(R.string.exercise_msg, eSet, eReps, eHold),
+            modifier = Modifier.padding(top = dimensionResource(R.dimen.padding_small))
+        )
+    }
 }
 
 @Preview(showBackground = true)
 @Composable
 fun PhysioAppPreview() {
     PhysioAppTheme {
-        PhysioAppLayout("Android")
+        PhysioApp()
     }
 }
