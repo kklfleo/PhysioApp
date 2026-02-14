@@ -4,9 +4,9 @@ Create Project 	- Done
 Create Class for Exercise - Done
 	Name, Set, Rep, Hold, 
 List physio activity and state Sets reps and hold (If required) - Done
-Make page Scrollable
-Add a checkbox to notify completion
-Add a reset when all buttons are ticked
+Add a checkbox to notify completion - Done
+Add a button for each set - Done
+Add a reset when all buttons are ticked - Done
 Set a notification for when to do physio
 Add a tick on calender,
 Add a streak
