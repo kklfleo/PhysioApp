@@ -2,7 +2,9 @@
     <string name="app_name">PhysioApp</string>
     <string name="actual_app_name">Leon\'s Physio Plan</string>
     <string name="exercise_msg">Sets: %d, Reps: %d, Hold: %d seconds</string>
-    <string name="complete_msg">%d</string>
+    <string name="complete_msg">Completed: %d</string>
+    <string name="reset_msg">Plan Finished</string>
+    <string name="done_msg">Done</string>
     <string name="exercise1">Ankle Pump in Supine</string>
     <string name="exercise2">Static quadriceps</string>
     <string name="exercise3">Active knee flexion in long sit</string>

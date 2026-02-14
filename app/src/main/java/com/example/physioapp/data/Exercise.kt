@@ -9,15 +9,16 @@ data class Exercise (
     val hold: Int = 0,
     val set: Int = 1,
     val reps: Int = 10,
-    val state: Boolean = false
+    val state: Boolean = false,
+    val setsDone: List<Boolean> = List(set) { false }
 )
 
 val plan = listOf(
-    Exercise(R.string.exercise1, 0),
-    Exercise(R.string.exercise2, 5),
-    Exercise(R.string.exercise3, 5),
-    Exercise(R.string.exercise4, 5),
-    Exercise(R.string.exercise5, 5),
-    Exercise(R.string.exercise6, 0),
-    Exercise(R.string.exercise7, 5),
+    Exercise(R.string.exercise1, 0, 3),
+    Exercise(R.string.exercise2, 5, 3),
+    Exercise(R.string.exercise3, 5, 3),
+    Exercise(R.string.exercise4, 5, 3),
+    Exercise(R.string.exercise5, 5, 3),
+    Exercise(R.string.exercise6, 0, 3),
+    Exercise(R.string.exercise7, 5, 3),
 )
